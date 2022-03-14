@@ -136,3 +136,8 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'amata.family59@gmail.com'
 EMAIL_HOST_PASSWORD = 'aryu@60018'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
