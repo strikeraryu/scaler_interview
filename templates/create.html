@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create</title>
+</head>
+
+<body>
+    <h1> Schedule an interview</h1>
+    <span class="error">{{ error }}</span>
+    <form action="/create" method="POST">{% csrf_token %}
+        <label>Title</label>
+        <input type="text" id="title" name="title" value="{{title}}" placeholder="Title" required><br><br>
+        <label>Start Time</label>
+        <input type="datetime-local" id="start_time" name="start_time" value="{{start_time}}" required><br><br>
+        <label>End Time</label>
+        <input type="datetime-local" id="end_time" name="end_time" value="{{end_time}}" required> <br><br>{% for participant in participants %} {% if participant.id|slugify in checked_participants %}
+        <input type="checkbox" value="{{ participant.id }}" id="{{ participant.id }}" name="participants" checked> {% else %}
+        <input type="checkbox" value="{{ participant.id }}" id="{{ participant.id }}" name="participants"> {% endif %}
+        <label for="{{ participant.id }}">{{ participant.first_name }} {{ participant.last_name }}</label> {% endfor %}<br><br><br>
+        <input type="submit" value="Schedule"><br><br>
+    </form>
+    <a href="/interviews">
+        <input type="button" value="Upcoming interviews" />
+    </a>
+    <a href="/upload">
+        <input type="button" value="Upload resume" />
+    </a>
+</body>
+
+</html>

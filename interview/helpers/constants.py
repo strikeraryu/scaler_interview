@@ -1,0 +1,1 @@
+participantsLimit = 2

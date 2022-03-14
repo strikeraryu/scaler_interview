@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% for participant in participants %} {{ participant.first_name }} {{ participant.last_name }}
+    <form action="/upload/{{ participant.id }}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="resume">
+        <button type="submit">Upload</button> {% if participant.resume %}
+        <a href="/media/{{participant.resume}}" download>
+            <input type="button" value="Download" />
+        </a>{% endif %}
+    </form>
+    <br> {% endfor %}
+    <br>
+    <a href="/interviews">
+        <input type="button" value="Upcoming interviews" />
+    </a>
+    <a href="/create">
+        <input type="button" value="Add interviews" />
+    </a>
+</body>
+
+</html>

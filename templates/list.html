@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% if interviews|length == 0%}
+    <h1> No upcoming interviews</h1>
+    {% else %}
+    <h1> Upcoming interviews</h1>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Participants</th>
+        </tr>
+        {% for interview in interviews%} {% if interview.id|slugify == edit_id %}
+        <tr>
+            {{ error }}
+            <form action="/interviews/{{interview.id}}" method="POST">{% csrf_token %}
+                <td>
+                    <input type="text" id="title" name="title" value="{{ interview.title }}" required>
+                </td>
+                <td>
+                    <input type="datetime-local" id="start_time" name="start_time" value="{{ interview.start_time|date:'Y-m-d'}}T{{ interview.start_time|time:'H:i:s'}}" required>
+                </td>
+                <td>
+                    <input type="datetime-local" id="end_time" name="end_time" value="{{ interview.end_time|date:'Y-m-d'}}T{{ interview.end_time|time:'H:i:s'}}" required>
+                </td>
+                <td>
+                    <ul>
+                        {% for participant in participants %} {% if participant in interview.participants.all %}
+                        <input type="checkbox" value="{{ participant.id }}" id="{{ participant.id }}" name="participants" checked> {% else %}
+                        <input type="checkbox" value="{{ participant.id }}" id="{{ participant.id }}" name="participants"> {% endif %}
+                        <label for="{{ participant.id }}">{{ participant.first_name }} {{ participant.last_name }}</label> {% endfor %}
+                    </ul>
+                </td>
+                <td>
+                    <input type="submit" value="Update">
+                </td>
+            </form>
+        </tr>
+        {% else %}
+        <tr>
+            <td>{{ interview.title }}</td>
+            <td>{{ interview.start_time }}</td>
+            <td>{{ interview.end_time }}</td>
+            <td>
+                <ul>
+                    {% for participant in interview.participants.all %}
+                    <li>{{ participant.first_name }} {{ participant.last_name }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+            <td>
+                <form action="/interviews/{{interview.id}}" method="GET">
+                    <input type="submit" value="Edit">
+                </form>
+            </td>
+        </tr>
+        {% endif %} {% endfor %}
+    </table>
+    {% endif %}
+    <br><br>
+    <a href="/create">
+        <input type="button" value="Add interviews" />
+    </a>
+    <a href="/upload">
+        <input type="button" value="Upload resume" />
+    </a>
+</body>
+
+</html>
