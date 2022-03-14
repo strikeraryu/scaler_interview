@@ -1,1 +1,1 @@
-web: gunicorn nemesis.wsgi
+web: gunicorn scaler_interview.wsgi
