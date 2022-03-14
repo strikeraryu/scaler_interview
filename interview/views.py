@@ -4,7 +4,6 @@ from django.core.mail import send_mail
 from .helpers.utils import isValid
 from .helpers.queries import getAllParticipant, getUpcomingInterviews, getEmailsFromParticipantId, getUrlFromParticipantId
 from .helpers.mutations import insertInterview, updateInterview, updateParticipantUrl
-from scaler_interview.settings import MEDIA_ROOT
 
 def createInterview(request):
     context = {}

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-z2qljp_xy#_!1)a@(yl4s36d77b)0a8pr=*rqt7@c7&730yj==
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['Localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['Localhost', '127.0.0.1', 'https://scaler-interview.herokuapp.com/']
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
